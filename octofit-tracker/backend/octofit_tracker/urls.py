@@ -18,6 +18,11 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
 
+
+# Use environment variable for codespace name in API documentation or responses if needed
+import os
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME', 'localhost')
+
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'teams', views.TeamViewSet)
@@ -27,6 +32,6 @@ router.register(r'leaderboard', views.LeaderboardViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.api_root, name='api_root'),
-    path('', include(router.urls)),
+    path('api/', views.api_root, name='api_root'),
+    path('api/', include(router.urls)),
 ]
